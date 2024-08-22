@@ -27,7 +27,7 @@ const icons: Record<string, JSX.Element> = {
   Watch: <sinch-icon-watch slot="icon"/>,
 }
 
-export const M"ultiple-example" FC = () => {
+export const MultipleExample" FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState('')
   const onClose = () => setIsOpen(false)
@@ -93,8 +93,6 @@ export const M"ultiple-example" FC = () => {
   )
 }
 ```
-
-
 
 Types for all the components in the Nectary components library:
 
@@ -726,6 +724,94 @@ label: string,
   status?: TSinchVerticalStepperStatusType,
 }
 
+```
+
+The following type describes the slots that can be used for each components in the Nectary components library:
+remember that slots are needed for some components like sinch-field
+
+```ts
+export interface NamedSlots {
+  'sinch-accordion': never,
+  'sinch-accordion-item': 'icon' | 'content',
+  'sinch-action-menu': never,
+  'sinch-action-menu-option': 'icon',
+  'sinch-alert': 'action' | 'close',
+  'sinch-avatar': never,
+  'sinch-badge': never,
+  'sinch-button': 'left-icon' | 'icon' | 'right-icon',
+  'sinch-card': 'illustration' | 'icon' | 'action',
+  'sinch-card-container': never,
+  'sinch-checkbox': never,
+  'sinch-chip': 'icon' | 'right-icon',
+  'sinch-code-tag': never,
+  'sinch-color-menu': never,
+  'sinch-color-menu-option': never,
+  'sinch-color-swatch': never,
+  'sinch-date-picker': never,
+  'sinch-dialog': 'icon' | 'content' | 'buttons',
+  'sinch-emoji': never,
+  'sinch-emoji-picker': never,
+  'sinch-field': 'tooltip' | 'input',
+  'sinch-file-drop': never,
+  'sinch-file-picker': never,
+  'sinch-file-status': 'content' | 'action',
+  'sinch-flag': never,
+  'sinch-grid': 'item',
+  'sinch-grid-item': 'content',
+  'sinch-help-tooltip': never,
+  'sinch-horizontal-stepper': never,
+  'sinch-horizontal-stepper-item': never,
+  'sinch-icon': never,
+  'sinch-inline-alert': 'action' | 'close',
+  'sinch-input': 'left' | 'icon' | 'right',
+  'sinch-link': never,
+  'sinch-list': never,
+  'sinch-list-item': 'content',
+  'sinch-pagination': never,
+  'sinch-pop': 'target' | 'target-open' | 'content',
+  'sinch-popover': 'target' | 'content',
+  'sinch-progress': never,
+  'sinch-progress-stepper': never,
+  'sinch-progress-stepper-item': never,
+  'sinch-radio': never,
+  'sinch-radio-option': never,
+  'sinch-rich-text': never,
+  'sinch-rich-textarea': 'top' | 'bottom',
+  'sinch-segment': 'icon' | 'preview' | 'info' | 'collapse' | 'content' | 'action',
+  'sinch-segment-collapse': never,
+  'sinch-segmented-control': never,
+  'sinch-segmented-control-option': 'icon',
+  'sinch-segmented-icon-control': never,
+  'sinch-segmented-icon-control-option': 'icon',
+  'sinch-select-button': 'left' | 'icon',
+  'sinch-select-menu': never,
+  'sinch-select-menu-option': 'icon',
+  'sinch-skeleton': never,
+  'sinch-skeleton-item': never,
+  'sinch-spinner': never,
+  'sinch-table': never,
+  'sinch-table-body': never,
+  'sinch-table-cell': never,
+  'sinch-table-head': never,
+  'sinch-table-head-cell': 'checkbox' | 'left' | 'tooltip' | 'right',
+  'sinch-table-row': never,
+  'sinch-tabs': never,
+  'sinch-tabs-icon-option': 'icon',
+  'sinch-tabs-option': 'icon',
+  'sinch-tag': 'icon',
+  'sinch-text': never,
+  'sinch-textarea': 'bottom',
+  'sinch-tile-control': never,
+  'sinch-tile-control-option': 'icon',
+  'sinch-time-picker': never,
+  'sinch-title': never,
+  'sinch-toast': 'action' | 'close',
+  'sinch-toast-manager': never,
+  'sinch-toggle': never,
+  'sinch-tooltip': never,
+  'sinch-vertical-stepper': never,
+  'sinch-vertical-stepper-item': never,
+}
 ```
 
 Your output should consist of two blocks. `Reasoning:` where you explain your reasoning and what components Nectary match your needs and `Code:` a single react component with the code you want the user to run. It should not be exported and you should omit all imports. You must render the component by doing `render(<MyComponent>)`
