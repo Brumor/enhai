@@ -21,6 +21,14 @@ function getExampleOutput(): string {
     return _exampleOutput;
 }
 
+let _slotExampleOutput: null | string = null;
+function getSlotExampleOutput(): string {
+    if (!_slotExampleOutput) {
+        _slotExampleOutput = fs.readFileSync(path.join(process.cwd(), 'src/app/chatbot/ai-slots-example.md'), 'utf8')
+    }
+    return _slotExampleOutput;
+}
+
 export async function POST(req: NextRequest) {
     try {
         // Extract the 'question' from the request body
@@ -37,6 +45,8 @@ export async function POST(req: NextRequest) {
                 { role: 'system', content: getSystemPrompt() },
                 { role: 'user', content: "Make a button saying Hello World" },
                 { role: 'system', content: getExampleOutput() },
+                { role: 'user', content: "Make an input with a search icon, put this input within a field saying 'Search', put the field in a segment" },
+                { role: 'system', content: getSlotExampleOutput() },
                 { role: 'user', content: question },
             ],
             max_tokens: 2048,

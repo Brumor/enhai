@@ -249,10 +249,10 @@ value: string,
   locale: string,
   range?: boolean,
   "aria-label" string,
-  prevYearA"ria-label" string,
-  nextYearA"ria-label" string,
-  prevMonthA"ria-label" string,
-  nextMonthA"ria-label" string,
+  "prev-year-aria-label" string,
+  "next-year-aria-label" string,
+  "prev-year-aria-label" string,
+  "next-year-aria-label" string,
   "on-change" (e: CustomEvent<string>) => void,
 }
 
@@ -261,7 +261,7 @@ value: string,
 open: boolean,
   caption: string,
   "aria-label" string,
-  closeA"ria-label" string,
+  "close-aria-label" string,
   "on-close" (e: CustomEvent<TSinchDialogCloseDetail>) => void,
 }
 
@@ -344,6 +344,7 @@ label: string,
 
   /** Attributes for the <sinch-icon> component */
   interface SinchIconWrapper {
+    // name should be a material ui icon name.
 name: string,
 }
 
@@ -538,7 +539,7 @@ value: string,
   searchable?: boolean | null,
   "search-placeholder" string,
   "aria-label" string,
-  onS"earch-change" (e: CustomEvent<string>) => void,
+  "on-search-change" (e: CustomEvent<string>) => void,
   "search-value" string,
   "on-change" (e: CustomEvent<string>) => void,
 }
@@ -665,7 +666,7 @@ value: string,
 value: string,
   ampm?: boolean,
   "aria-label" string,
-  submitA"ria-label" string,
+  submit-aria-label" string,
   "on-change" (e: CustomEvent<string>) => void,
 }
 
