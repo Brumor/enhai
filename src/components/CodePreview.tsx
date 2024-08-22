@@ -2,7 +2,6 @@
 import { type FC, useState, useEffect, ComponentType } from "react";
 import styled from "styled-components";
 import { LiveEditor, LivePreview, LiveError, withLive, renderElementAsync } from "react-live";
-import '@nectary/components/standalone'
 import { CopyButton } from "./CopyButton";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useCode } from "./providers";

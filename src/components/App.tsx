@@ -1,13 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LiveProvider } from "react-live";
 import styled from 'styled-components';
 import { LiveCodePreview } from "../components/CodePreview";
 import Markdown from 'react-markdown'
-import "@nectary/components/button";
-import '@nectary/components/input';
-import '@nectary/components/title';
-import '@nectary/components/spinner'
 import { LoadingAnimation } from './LoadingAnimation';
 import { themes } from "prism-react-renderer";
 import { useCodeEditTheme, useCode } from './providers';
@@ -46,6 +42,10 @@ export const App = () => {
   const [userInput, setUserInput] = useState('');
   const [responseData, setResponseData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    import('@nectary/components/standalone')
+  }, [])
 
   const [code, setCode] = useCode();
   const [theme] = useCodeEditTheme()

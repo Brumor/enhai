@@ -35,6 +35,7 @@ export const ThemeSwitcher = () => {
                 on-change={(e) => setTheme(e.detail as AvailableThemes)}
             >
                 {availableThemes.map(theme => <sinch-select-menu-option
+                    key={theme}
                     style={{ minWidth: "150px" }}
                     text={theme}
                     aria-label={theme}
