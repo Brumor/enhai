@@ -9,16 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nectary/assets": "^2.1.1",
+    "@nectary/components": "^3.3.5",
+    "@nectary/theme-base": "^1.0.0",
+    "next": "14.2.5",
+    "openai": "^4.56.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-live": "^4.1.7",
+    "react-markdown": "^9.0.1",
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5"
   }
 }
