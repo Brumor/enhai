@@ -727,7 +727,7 @@ label: string,
 ```
 
 The following type describes the slots that can be used for each components in the Nectary components library:
-remember that slots are needed for some components like sinch-field
+It is important to remember that slots are needed for component compositions.
 
 ```ts
 export interface NamedSlots {

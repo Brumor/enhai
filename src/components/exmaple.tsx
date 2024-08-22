@@ -23,4 +23,5 @@ const Counter = (props: Props) => {
         </div>
     )
 }
+// @ts-ignore
 render(<Counter label="Counter" />)

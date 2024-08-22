@@ -8,8 +8,9 @@ import "@nectary/components/button";
 import '@nectary/components/input';
 import '@nectary/components/title';
 import '@nectary/components/spinner'
-import gif from  "./ezgif-6-4738b038d8.gif"
-import Image from "next/image";
+import { LoadingAnimation } from './LoadingAnimation';
+import { themes } from "prism-react-renderer";
+import { useCodeEditTheme, useCode } from './providers';
 
 
 const Container = styled.div`
@@ -46,6 +47,9 @@ export const App = () => {
   const [responseData, setResponseData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [code, setCode] = useCode();
+  const [theme] = useCodeEditTheme()
+
   const handleInputChange = (value: string) => {
     setUserInput(value);
   };
@@ -63,7 +67,8 @@ export const App = () => {
       .then(response => response.json())
       .then(responseData => {
         // Handle the response from the chatbot
-        setResponseData(responseData);
+        // setResponseData(responseData);
+        setCode(responseData?.extractedCode || "")
       })
       .catch(error => {
         // Handle any errors
@@ -74,19 +79,29 @@ export const App = () => {
   return (
     <Container>
       <TitleWrapper>
-        <sinch-title type="xl" level="1" text="Build my compositions" />
-        <sinch-title type="m" level="2" text="Generate and preview composition made with Nectary components" />
+        <sinch-title type="xl" level="1" text="Nectary Playground" />
+        <sinch-title type="s" level="3" style={{ maxWidth: "80ch" }} text="Add your plain code to Nectarify, or simply prompt a composition (e.g., create a form with 3 input fields) to build it seamlessly with Nectary components." />
       </TitleWrapper>
       <FlexContainer>
         <div style={{ display: "flex", flexDirection: "row", gap: "12px" }}>
-          <sinch-input aria-label="Input"
+          <sinch-textarea aria-label="Input"
             placeholder="Enter your message"
             value={userInput}
-            on-change={(e) => handleInputChange(e.detail ?? "")} />
-          <sinch-button text="Send" type="primary" on-click={handleSendClick} disabled={isLoading} aria-label='Send'>
-            {isLoading && <sinch-spinner slot="icon"></sinch-spinner>}
-          </sinch-button>
-            
+            on-change={(e) => handleInputChange(e.detail ?? "")} style={{ width: "100%" }}>
+            <sinch-button
+              slot="bottom"
+              type="primary"
+              aria-label="Send"
+              text="Send"
+              on-click={handleSendClick}
+              disabled={isLoading}
+              style={{ marginLeft: 'auto' }}
+            >
+              {isLoading && <sinch-spinner slot="icon"></sinch-spinner>}
+              <sinch-icon slot="right-icon" name="send" />
+            </sinch-button>
+          </sinch-textarea>
+
         </div>
         {/* <div>
           {responseData !== null && (
@@ -96,9 +111,11 @@ export const App = () => {
           )}
         </div> */}
         <Flex>
-          {isLoading ? <Image src={gif.src} alt={gif.src} height={120} width={120} /> : <LiveProvider code={responseData?.extractedCode} noInline scope={{ useState }}>
-            <LiveCodePreview />
-          </LiveProvider>}
+          {isLoading ? <LoadingAnimation /> : (
+            <LiveProvider code={code} noInline scope={{ useState }} theme={themes[theme]}>
+              <LiveCodePreview />
+            </LiveProvider>
+          )}
         </Flex>
       </FlexContainer>
     </Container>

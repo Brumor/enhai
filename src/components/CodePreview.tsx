@@ -1,8 +1,11 @@
 'use client'
-import { type FC, type Element, useState } from "react";
+import { type FC, useState, useEffect, ComponentType } from "react";
 import styled from "styled-components";
-import { LiveEditor, LivePreview, LiveError, withLive } from "react-live";
+import { LiveEditor, LivePreview, LiveError, withLive, renderElementAsync } from "react-live";
 import '@nectary/components/standalone'
+import { CopyButton } from "./CopyButton";
+import { ThemeSwitcher } from "./ThemeSwitcher";
+import { useCode } from "./providers";
 
 
 const BoxTitle = styled.h3`
@@ -60,36 +63,45 @@ flex-direction: column;
 flex: 1
 `
 
-type CodePreviewProps = {
-  code: string;
-  error: string;
-  onError: () => void;
-  onChange: () => void;
-  element: Element;
-}
-const CodePreview: FC<CodePreviewProps> = ({ error, code }) => {
-  return <MainWrapper>
+const ErrorWrapper = styled.div`
+ pre{
+   padding: 12px;
+  background-color: #ffd8d6;
+  border-radius: 8px;
+  color: #1a2126;
+ }
+`;
+
+export const LiveCodePreview: FC = () => {
+  const [code, setCode] = useCode();
+  const copyCodeToClipboard = () => {
+    navigator.clipboard.writeText(code);
+  }
+
+  return (
+  <MainWrapper>
     <EditorWrapper>
       <sinch-segment
-        caption="Code preview"
+        caption="Code preview - feel free to edit!"
       >
+        <ThemeSwitcher />
+        <CopyButton onClick={copyCodeToClipboard} />
         <div slot="content">
-          <LiveEditor />
+          <LiveEditor onChange={(code) => setCode(code)}  />
         </div>
       </sinch-segment>
     </EditorWrapper>
     <PreviewWrapper>
-      
-      <sinch-segment
-        caption="Live preview"
-      >
-        <div slot="content">
-          <LivePreview />
-          {code && <LiveError />}
-        </div>
-      </sinch-segment>
-    </PreviewWrapper>
-  </MainWrapper >;
-};
 
-export const LiveCodePreview = withLive(CodePreview)
+    <sinch-segment
+      caption="Live preview"
+    >
+      <div slot="content">
+        <LivePreview />
+        {code && <ErrorWrapper><LiveError /></ErrorWrapper>}
+      </div>
+    </sinch-segment>
+  </PreviewWrapper>
+  </MainWrapper >
+)
+};
