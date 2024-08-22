@@ -1,13 +1,14 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { OpenAI } from 'openai';
 import fs from "node:fs"
+import path from "node:path"
 const openai = new OpenAI();
 
 
 let _systemPrompt: null | string = null;
 function getSystemPrompt(): string {
     if (!_systemPrompt) {
-        _systemPrompt = fs.readFileSync('src/ai-prompt.md', 'utf8');
+        _systemPrompt = fs.readFileSync(path.join(process.cwd(), 'src/app/chatbot/ai-prompt.md'), 'utf8');
     }
     return _systemPrompt;
 }
@@ -15,7 +16,7 @@ function getSystemPrompt(): string {
 let _exampleOutput: null | string = null;
 function getExampleOutput(): string {
     if (!_exampleOutput) {
-        _exampleOutput = fs.readFileSync('src/ai-example-output.md', 'utf8');
+        _exampleOutput = fs.readFileSync(path.join(process.cwd(), 'src/app/chatbot/ai-example-output.md'), 'utf8')
     }
     return _exampleOutput;
 }
