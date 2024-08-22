@@ -40,11 +40,12 @@ const Flex = styled.div`
 
 export const App = () => {
   const [userInput, setUserInput] = useState('');
-  const [responseData, setResponseData] = useState<any>(null);
+  const [appLoading, setAppLoading] = useState<any>(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    import('@nectary/components/standalone')
+    import('@nectary/components/standalone').then(() => setAppLoading(false))
+    
   }, [])
 
   const [code, setCode] = useCode();
@@ -76,6 +77,11 @@ export const App = () => {
       }).finally(() => setIsLoading(false));
   };
 
+  if (appLoading) {
+    return <LoadingAnimation />
+    
+  }
+
   return (
     <Container>
       <TitleWrapper>
@@ -103,13 +109,6 @@ export const App = () => {
           </sinch-textarea>
 
         </div>
-        {/* <div>
-          {responseData !== null && (
-            <Markdown>
-              {responseData.extractedOutput}
-            </Markdown>
-          )}
-        </div> */}
         <Flex>
           {isLoading ? <LoadingAnimation /> : (
             <LiveProvider code={code} noInline scope={{ useState }} theme={themes[theme]}>
