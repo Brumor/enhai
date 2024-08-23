@@ -7,6 +7,7 @@ import Markdown from 'react-markdown'
 import { LoadingAnimation } from './LoadingAnimation';
 import { themes } from "prism-react-renderer";
 import { useCodeEditTheme, useCode } from './providers';
+import { PromptField } from './PromptField';
 
 
 const Container = styled.div`
@@ -45,7 +46,6 @@ export const App = () => {
 
   useEffect(() => {
     import('@nectary/components/standalone').then(() => setAppLoading(false))
-    
   }, [])
 
   const [code, setCode] = useCode();
@@ -55,31 +55,9 @@ export const App = () => {
     setUserInput(value);
   };
 
-  const handleSendClick = () => {
-    setIsLoading(true);
-    const data = { question: userInput };
-    fetch('/chatbot', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(responseData => {
-        // Handle the response from the chatbot
-        // setResponseData(responseData);
-        setCode(responseData?.extractedCode || "")
-      })
-      .catch(error => {
-        // Handle any errors
-        console.error(error);
-      }).finally(() => setIsLoading(false));
-  };
-
   if (appLoading) {
     return <LoadingAnimation />
-    
+
   }
 
   return (
@@ -89,29 +67,10 @@ export const App = () => {
         <sinch-title type="s" level="3" style={{ maxWidth: "80ch" }} text="Add your plain code to Nectarify, or simply prompt a composition (e.g., create a form with 3 input fields) to build it seamlessly with Nectary components." />
       </TitleWrapper>
       <FlexContainer>
-        <div style={{ display: "flex", flexDirection: "row", gap: "12px" }}>
-          <sinch-textarea aria-label="Input"
-            placeholder="Enter your message"
-            value={userInput}
-            on-change={(e) => handleInputChange(e.detail ?? "")} style={{ width: "100%" }}>
-            <sinch-button
-              slot="bottom"
-              type="primary"
-              aria-label="Send"
-              text="Send"
-              on-click={handleSendClick}
-              disabled={isLoading}
-              style={{ marginLeft: 'auto' }}
-            >
-              {isLoading && <sinch-spinner slot="icon"></sinch-spinner>}
-              <sinch-icon slot="right-icon" name="send" />
-            </sinch-button>
-          </sinch-textarea>
-
-        </div>
+        <PromptField setCode={setCode} setIsLoading={setIsLoading} isLoading={isLoading} />
         <Flex>
           {isLoading ? <LoadingAnimation /> : (
-            <LiveProvider code={code} noInline scope={{ useState }} theme={themes[theme]}>
+            <LiveProvider code={code} noInline scope={{ useState, useEffect }} theme={themes[theme]}>
               <LiveCodePreview />
             </LiveProvider>
           )}
